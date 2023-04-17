@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sample" resource="default" engine="innodb" comment="Sample Table">
+        <column xsi:type="smallint" name="sample_id" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+      
+        <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Title"/>
+        <column xsi:type="varchar" name="identifier" nullable="false" length="255" comment="String Identifier"/>
+       
+        <column xsi:type="varchar" name="content" nullable="true" comment="Content"/>
+       
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Modification Time"/>
+        <column xsi:type="smallint" name="is_active" unsigned="false" nullable="false" identity="false" default="1" comment="Is Active"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+        <column name="sample_id"/>
+        </constraint>     
+       
+        <index referenceId="SAMPLE_IDENTIFIER" indexType="btree">
+             <column name="identifier"/>
+        </index>
+        <index referenceId="SAMPLE_TITLE_IDENTIFIER_CONTENT" indexType="fulltext">
+           <column name="title"/>
+           <column name="identifier"/>
+           <column name="content"/>
+        </index>
+    </table>
+</schema>
